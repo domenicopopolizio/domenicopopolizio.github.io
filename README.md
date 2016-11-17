@@ -1,4 +1,5 @@
 # domenicopopolizio.github.io
 My personal website.
-It's an italian website, and I'm italian too, so,
-sorry, the most of my codes use italian word.
+It's an italian website, 
+
+p.s. Sorry, the most of my codes use italian words, ( because I'm italian ).
