@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta content='width=device-width, initial-scale=1' name='viewport'>
+
+        <style> 
+            p#titolo {
+                color: red;
+                font-weight: bold;
+            }   
+            
+            html {
+                text-align: center;
+            }      
+            .centered_list {
+                text-align: center;
+                list-style-position:inside;
+            }
+            .centered_list2 {
+                /*text-align: center; */
+                list-style-position:inside;
+            }
+        </style>
+        <!--script src="script.js"></script-->
+        <script>
+            var x = [];
+            var y = [];
+            var z = [];
+            var imp_x = 0;
+            var imp_y = 0;
+            var imp_z = 0;
+            document.onload = function () {
+                var area1 = document.getElementById("area1");
+                var numero_valori = document.getElementById("numero_valori");
+            
+                var area2 = document.getElementById("area2");
+                var grid2 = document.getElementById("grid2");
+                var current_number_element;
+                var current_number_text;
+                var current_x_element;
+                var current_y_element;
+            
+                var current_row;
+                var current_cell;
+                
+                var area3 = document.getElementById("area3");
+                var risultati3 = document.getElementById("risultati3");
+                var lista3 = document.getElementById("lista3");
+                var x;
+                var y;
+                var z;
+                var z_medio;
+                
+                //var ;
+                var z_medio_node;
+                
+                var formula_z;
+                
+                var formula_corrente;
+                var formula_corrente_definitiva;
+                
+                
+                //area2.style.display = "none";
+                
+                var area4 = document.getElementById("area4");
+                
+                var area5 = document.getElementById("area5");
+            }
+            
+            
+            function decimal_round(num, imprec) {
+                str_imp = imprec+'';
+                dec_p = str_imp.length-(str_imp.indexOf('.')+1);
+                imprec = eval(imprec); // per qualche motivo ogni tanto imprec diventa stringa, in questo modo posso prevenire alcuni errori
+                num = num*(Math.pow(10, dec_p));
+                ////console.log(num, imprec);
+                num = Math.round(num);
+                num = num/(Math.pow(10, dec_p));
+                rest = num%imprec;
+                ////console.log(num, rest);
+                if ((imprec-rest) <= imprec/2) {
+                    return num-rest+imprec;
+                } else if ((imprec-rest) > imprec/2) {
+                    return num-rest;
+                }
+            }
+            
+            function decimal_ceil(num, imprec) {
+                str_imp = imprec+'';
+                dec_p = str_imp.length-(str_imp.indexOf('.')+1);
+                imprec = eval(imprec); // per qualche motivo ogni tanto imprec diventa stringa, in questo modo posso prevenire alcuni errori
+                num = num*(Math.pow(10, dec_p));
+                ////console.log(num, imprec);
+                num = Math.ceil(num);
+                num = num/(Math.pow(10, dec_p));
+                rest = num%imprec;
+                ////console.log(num, rest);
+                if ((imprec-rest) <= imprec/2) {
+                    return num-rest+imprec;
+                } else if ((imprec-rest) > imprec/2) {
+                    return num-rest;
+                }
+            }
+            
+            
+            function confirm1 () {
+                
+                if (grid2.rows.length > 3) {
+                    gr_l = grid2.rows.length
+                    for (i = gr_l; i > 3; --i ) {
+                        grid2.deleteRow(i-1);
+                    }
+                }
+                var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+                area1.style.display = "none";
+                area2.style.display = "block";
+                area3.style.display = "none";
+                area4.style.display = "none";
+            	area5.style.display = "none";
+                //document.write( numero_valori.value );
+                for (var i = 0; i < numero_valori.value; i++) {
+                    //document.write("ciao"+i);
+                    current_row = grid2.insertRow(grid2.rows.length);
+                    for (var k = 0; k < 3; k++) {
+                        
+                        if (k === 0 ) {
+                            
+                            current_number_element = document.createElement("p");
+                            current_number_text = document.createTextNode(i+1);
+                            current_number_element.appendChild(current_number_text);
+                            current_number_element.id = 'num2_'+i;
+                            current_cell = current_row.insertCell(k)                        
+                            current_cell.appendChild(current_number_element);
+                        
+                            
+                             
+                        } else if (k === 1 ) {
+                            
+                            current_x_element = document.createElement("input");
+                            current_x_element.id = 'x_'+i;
+                            current_cell = current_row.insertCell(k)                        
+                            current_cell.appendChild(current_x_element);
+                            
+                        }   else if (k === 2 ) {
+                            //document.write("ciao"+k);
+                            var current_y_element = document.createElement("input");
+                            current_y_element.id = 'y_'+i;
+                            
+                            current_cell = current_row.insertCell(k);                        
+                            current_cell.appendChild(current_y_element);
+                        }   
+                    } 
+                }
+            }
+            
+            function confirm2 () {
+                var z_medio = 0;
+                x = []
+                y = []
+                z = []
+                var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+                area1.style.display = "none";
+                area2.style.display = "none";
+                area3.style.display = "block";
+                area4.style.display = "none";
+            	area5.style.display = "none";
+                imp_x = document.getElementById('imp_x').value 
+                imp_y = document.getElementById('imp_y').value 
+                
+                formula_z = document.getElementById("formula_z").value;
+                
+                /*
+                THIS SISTEM FOR FIND IMP_Z IS WRONG, BUT I WON'T DELETE IT, BECAUSE
+                I CAN REUSE IT IN THE FUTURE
+                formula_corrente = formula_z.replace('x', imp_x)
+                formula_corrente_definitiva = formula_corrente.replace('y', imp_y)
+                imp_z =  eval(forumula_corrente_definitva) */
+                
+                imp_z = Math.min (imp_x, imp_y)
+                
+                for ( var i = 0; i < grid2.rows.length-3; i++ ) {
+                    x.push( decimal_round(document.getElementById('x_'+i).value, document.getElementById('imp_x').value  ));
+                    y.push( decimal_round(document.getElementById('y_'+i).value, document.getElementById('imp_y').value  ));
+                }
+                ////console.log(x, y);
+                
+                for (var i = 0; i < x.length; i++) {
+                    formula_corrente = formula_z.replace('x', x[i]);
+                    formula_corrente_definitiva = formula_corrente.replace('y', y[i]);
+                    z.push(decimal_round(eval(formula_corrente_definitiva), imp_z));
+                }
+                ////console.log(z);
+                for (var i= 0; i < z.length; i++) {
+                    z_medio += z[i];
+                }
+                
+                var z_medio = decimal_round( z_medio/z.length, imp_z );
+                var ea = decimal_round((Math.max(...z)-Math.min(...z))/2, imp_z);
+                var er = (ea/z_medio);
+                var er_perc = er*100;
+                
+                var z_esatto_node = document.createTextNode('Z = ('+z_medio+'±'+ea+');\n');
+                var z_medio_node = document.createTextNode('*Z medio = '+z_medio+";\n");
+                var ea_node = document.createTextNode('Errore assoluto (Ea) = '+ea+";\n");
+                var er_node = document.createTextNode('Errore relativo (Er) = '+er+";\n");
+                var erp_node = document.createTextNode('Errore relativo percentuale (Er%) = '+er_perc+";\n");
+                var a_capo_node = document.createTextNode('');
+                var z_elenco_node = document.createTextNode('*I valori di z sono: '+z+';\n');
+                /*
+                var z_esatto_str = 'Z = ('+z_medio+'±'+ea+');\n\n';
+                var z_medio_str = 'Z medio = '+z_medio+";\n\n";
+                var ea_str = 'Errore assoluto (Ea) = '+ea+";\n\n";
+                var er_str = 'Errore relativo (Er) = '+er+";\n\n";
+                var erp_str = 'Errore relativo percentuale (Er%) = '+er_perc+";\n\n\n\n";
+                var risultato_node = document.createTextNode(z_esatto_str+z_medio_str+ea_str+er_str+erp_str);
+                */
+                var z_esatto_element = document.createElement("p");
+                var z_medio_element = document.createElement("p");
+                var ea_element = document.createElement("p");
+                var er_element = document.createElement("p");
+                var erp_element = document.createElement("p");
+                var a_capo_element = document.createElement("p");
+                var z_elenco_element = document.createElement("p");
+                var testo_lista_3 = "";
+                for (var i = 0; i < z.length; i++) {
+                    testo_lista_3 += "<li id = lista_val_num"+i+">  ---  "+z[i]+"</li>";
+                }
+                lista3.innerHTML = testo_lista_3;
+                try {
+                    //pulisco i vari elementi per evitare sovrapposizioni di più valori diversi 
+                    ////console.log(risultati3.childNodes);
+                    
+                    risultati3_current_length = risultati3.childNodes.length;
+                    for (var i = risultati3_current_length; i > 0; i-- ){
+                        risultati3.removeChild(risultati3.childNodes[i-1]);
+                    }
+                    z_esatto_element.removeChild(z_esatto_element.childNodes[0]);
+                    z_medio_element.removeChild(z_medio_element.childNodes[0]);
+                    ea_element.removeChild(ea_element.childNodes[0]);
+                    er_element.removeChild(er_element.childNodes[0]);
+                    erp_element.removeChild(erp_element.childNodes[0]);
+                    a_capo_element.removeChild(a_capo_element.childNodes[0]);
+                    z_elenco_element.removeChild(z_elenco_element.childNodes[0]);
+                    z_esatto_element.appendChild(z_esatto_node);
+                    z_medio_element.appendChild(z_medio_node);
+                    ea_element.appendChild(ea_node);
+                    er_element.appendChild(er_node);
+                    erp_element.appendChild(erp_node);
+                    //a_capo_element.appendChild(a_capo_node);
+                    //z_elenco_element.appendChild(z_elenco_node);
+                    risultati3.appendChild(z_esatto_element);
+                    risultati3.appendChild(z_medio_element);
+                    risultati3.appendChild(ea_element);
+                    risultati3.appendChild(er_element);
+                    risultati3.appendChild(erp_element);
+                    //risultati3.appendChild(a_capo_element);
+                    //risultati3.appendChild(z_elenco_element);
+                }
+                catch (error) {
+                    //////console.log(error)
+                    z_esatto_element.appendChild(z_esatto_node);
+                    z_medio_element.appendChild(z_medio_node);
+                    ea_element.appendChild(ea_node);
+                    er_element.appendChild(er_node);
+                    erp_element.appendChild(erp_node);
+                    //a_capo_element.appendChild(a_capo_node);
+                    //z_elenco_element.appendChild(z_elenco_node);
+                    risultati3.appendChild(z_esatto_element);
+                    risultati3.appendChild(z_medio_element);
+                    risultati3.appendChild(ea_element);
+                    risultati3.appendChild(er_element);
+                    risultati3.appendChild(erp_element);
+                    //risultati3.appendChild(a_capo_element);
+                    //risultati3.appendChild(z_elenco_element);
+                }
+                
+            }
+            
+            function confirm3 () {
+            	var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+              	area1.style.display = "none";
+                area2.style.display = "none";
+                area3.style.display = "none";
+                area4.style.display = "block";
+            	area5.style.display = "none"; 
+            } 
+            
+            function confirm4 () {
+            	var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+            	area1.style.display = "none";
+                area2.style.display = "none";
+                area3.style.display = "none";
+                area4.style.display = "none";
+            	area5.style.display = "block";
+            	
+            	var area4 = document.getElementById("area4");
+            	var numero_q_x = document.getElementById("numero_q_x").value;
+            	var numero_q_y = document.getElementById("numero_q_y").value;
+            	var scala_x = Math.max(...x)/numero_q_x;
+            	var scala_y = Math.max(...y)/numero_q_y;
+            	
+            	var scala_x_p = document.getElementById("scala_x_p");
+            	var scala_y_p = document.getElementById("scala_y_p");
+            	scala_x_p.innerHTML = scala_x;
+            	scala_y_p.innerHTML = scala_y;
+            	
+            	var incertezza_q_x = document.getElementById("incertezza_q_x").value;
+            	var incertezza_q_y = document.getElementById("incertezza_q_y").value;
+            	
+            	var incertezza_x_p = document.getElementById("incertezza_x_p");
+            	var incertezza_y_p = document.getElementById("incertezza_y_p");
+            	
+            	//imp_x, imp_y
+            	
+            	var inc_x_graf = imp_x/scala_x;
+            	var inc_y_graf = imp_y/scala_y;
+            	
+            	if (inc_x_graf < incertezza_q_x) {
+            		inc_x_graf = incertezza_q_x;
+            	} else {
+            		inc_x_graf = decimal_ceil(inc_x_graf, incertezza_q_x);
+            	}
+            	
+            	if (inc_y_graf < incertezza_q_y) {
+            		inc_y_graf = incertezza_q_y;
+            	} else {
+            		inc_y_graf = decimal_ceil(inc_y_graf, incertezza_q_y); //in the future I can replace "ceil" with "round"(?)
+            	}
+            	
+            	////console.log("x"+inc_x_graf);
+            	////console.log("y"+inc_y_graf);
+            	//inc_x_graf = decimal_ceil(inc_x_graf, incertezza_q_x) //used ceil because at school we use this method, 
+            	//inc_y_graf = decimal_ceil(inc_y_graf, incertezza_q_y) //in the future I can replace "ceil" with "round"(?)
+            	
+            	incertezza_x_p.innerHTML = inc_x_graf;
+            	incertezza_y_p.innerHTML = inc_y_graf;
+            	
+            	var l_n_q_x = [];
+            	//console.log(x)
+            	for (var i = 0; i < x.length; i++) {
+            		//console.log("processando il valore x, nel ciclo 1, numero: "+i)
+            		nuovo_valore = x[i]/scala_x;
+            	
+		        	if (nuovo_valore < incertezza_q_x) {
+		        		nuovo_valore = incertezza_q_x;
+		        	} else {
+		        		nuovo_valore = decimal_ceil(nuovo_valore, incertezza_q_x);
+		        	}
+		        	
+            		l_n_q_x.push(nuovo_valore);
+            		//console.log("ottenuto: "+nuovo_valore)
+            	}
+            	
+            	
+            	var l_n_q_y = [];
+            	//console.log(y)
+            	for (var i = 0; i < y.length; i++) {
+            		//console.log("processando il valore y, nel ciclo 1, numero: "+i)
+            		nuovo_valore = y[i]/scala_y;
+            	
+		        	if (nuovo_valore < incertezza_q_y) {
+		        		nuovo_valore = incertezza_q_y;
+		        	} else {
+		        		nuovo_valore = decimal_ceil(nuovo_valore, incertezza_q_y);
+		        	}
+		        	
+            		l_n_q_y.push(nuovo_valore);
+            		//console.log("ottenuto: "+nuovo_valore)
+            	}
+            	
+            	var lista_n_q_x = document.getElementById("lista_n_q_x");
+            	var lista_n_q_y = document.getElementById("lista_n_q_y");
+            	
+            	
+            	var testo_lista_n_q_x = "";
+                for (var i = 0; i < l_n_q_x.length; i++) {
+                	//console.log("processando l_n_q_x numero: "+i)
+                    testo_lista_n_q_x += "<li id = lista_n_q_x_val_num"+i+">  ---  "+l_n_q_x[i]+"</li>";
+                	//console.log("ora il testo è: "+testo_lista_n_q_x)
+                }
+                lista_n_q_x.innerHTML = testo_lista_n_q_x;
+            	
+            	var testo_lista_n_q_y = "";
+                for (var i = 0; i < l_n_q_y.length; i++) {
+                	//console.log("processando l_n_q_y numero: "+i)
+                    testo_lista_n_q_y += "<li id = lista_n_q_y_val_num"+i+">  ---  "+l_n_q_y[i]+"</li>";
+                	//console.log("ora il testo è: "+testo_lista_n_q_y)
+                }
+                lista_n_q_y.innerHTML = testo_lista_n_q_y;
+                  
+            }
+            
+            function confirm5 () {
+            	return 0;
+            }
+            
+            
+            
+            function undo1 () {
+                return 0;
+            }
+            
+            function undo2 () {
+            	var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+                area1.style.display = "block";
+                area2.style.display = "none";
+                area3.style.display = "none";
+                area4.style.display = "none";
+            	area5.style.display = "none"; 
+            }
+            function undo3 () {
+            	var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+                area1.style.display = "none";
+                area2.style.display = "block";
+                area3.style.display = "none";
+                area4.style.display = "none";
+            	area5.style.display = "none"; 
+            }
+            
+            function undo4 () {
+            	var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+            	area1.style.display = "none";
+                area2.style.display = "none";
+                area3.style.display = "block";
+                area4.style.display = "none";
+            	area5.style.display = "none"; 
+            }
+            
+            function undo5 () {
+            	var area5 = document.getElementById("area5");
+		        var area4 = document.getElementById("area4");
+		        var area3 = document.getElementById("area3");
+		        var area2 = document.getElementById("area2");
+		        var area1 = document.getElementById("area1");
+            	area1.style.display = "none";
+                area2.style.display = "none";
+                area3.style.display = "none";
+                area4.style.display = "block";
+            	area5.style.display = "none"; 
+            }
+            
+        </script>
+
+
+        <title> FisicAutomatica </title>
+    </head>
+    
+    <body>
+        <center>
+            <p id = titolo > FISICAUTOMATICA </p> 
+        
+            <br>        
+        
+        
+        
+        
+            <div id = area1>
+        
+            
+                <p> Inserisci il numero di valori che stanno su x e su y: </p>
+            
+                <input id = numero_valori >
+            
+            
+                <br>
+                <br>
+            
+            
+                <p> Inserisci la formula per trovare il risutlato (z): </p>
+            
+                <input id = formula_z >
+            
+                <br>
+                <br>
+                <br>
+            
+                <button id = button_1 onclick = "confirm1()"> Conferma </button>
+            
+            
+            </div>
+        
+        
+        
+        
+            <div id = area2 > 
+                <table id = grid2 > 
+                    <tr> 
+                        <td>
+                            <p>  </p>
+                        </td>
+                    
+                        <td>
+                            <p> Imprec. speriment. su X: </p>
+                        </td>
+                    
+                        <td> 
+                            <p> Imprec. speriment. su Y: </p>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td> 
+                            <p>  <p>
+                        </td>
+                    
+                        <td>
+                            <input id = 'imp_x'>
+                        </td>
+                    
+                        <td>
+                            <input id = 'imp_y'>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td> 
+                            <p> N° </p>
+                        </td>
+                    
+                        <td>
+                            <center>
+                                <p> X </p>
+                            </center>
+                        </td>
+                    
+                        <td> 
+                            <center>
+                                <p> Y </p>
+                            </center>
+                        </td>
+                    </tr>
+                
+                </table>
+                
+                <br>
+                <br>
+                
+                <button id = button_2 onclick = "confirm2()"> Conferma </button>
+                <button id = button_indietro_2 onclick = "undo2()"> Indietro </button>
+                
+                
+            </div>
+            
+            <div id = area3 >
+                <div id = risultati3 > </div> 
+                
+                <div id = area_risultati3 >
+                    <br>
+                    <br> 
+                    <p> *Valori su Z: </p>
+                    <ol id = "lista3" class = centered_list >
+                    </ol>
+                </div>
+                
+                <br>
+                <br>
+                <button id = button_indietro_3 onclick = "undo3()"> Indietro </button>
+                <button id = button_3 onclick = "confirm3()"> Passa ai calcoli per il grafico </button>
+
+            </div>
+            
+            <div id = area4 >
+            	
+            	<p> Inserisci il numero di unità (quadretti, </p>
+            	<p> centimetri, etc ) presenti sull'asse x del grafico: </p>
+            	
+            	<input id = numero_q_x>
+            	
+            	<br>
+            	<br>
+            	<br>
+            	
+            	<p> Fai la stessa cosa, inserendo il </p>
+            	<p> numero di unità per l'asse y: </p>
+            	
+            	<input id = numero_q_y>
+				<br>
+            	<br>
+            	<br>
+				<p> Inserisci l'incertezza dei quadretti su x: (Ad esempio se sei su carta millimetrata</p>
+				<p> l'incertezza è di 0.1 unità, ovvero 0.1 centimetri, quindi devi scrivere 0.1 ) </p>
+				
+				<input id = incertezza_q_x>
+				<br>
+            	<br>
+            	<br>
+            	<p> Inserisci l'incertezza dei quadretti su y: </p>
+            	<input id = incertezza_q_y>
+            	<br>
+            	<br>
+            	<br>
+            	<br>
+            	<button id = button_4 onclick = "confirm4()"> Conferma </button>
+                <button id = button_indietro_4 onclick = "undo4()"> Indietro </button>
+            </div>
+            
+            <div id = area5 >
+            	<table>
+            		<tr>
+            			<td>
+				    		<p> Scala su x:</p>
+				    	</td>
+				    	<td>
+				    		<p id = scala_x_p ></p>
+				   		</td>
+				    </tr>
+            		<tr>
+            			<td>
+            				<p> Scala su y:</p>
+            			</td>
+            			<td>
+            				<p id = scala_y_p></p>
+            			</td>
+            		</tr>
+            	</table>
+            	<table border=0 cellpadding="0" cellspacing="0" style="min-width:400px">
+            		<td>
+     					<img src="incertezza.png" style="width:200px;">
+     				</td>
+     				<td>
+     					<table border = 0 style='height:100%;'>
+     						<tr>
+     							<td>
+			 						<br>
+			 						<p align = left> Incertezza su y: </p>
+			 						<br>
+			 					</td>
+			 					<td>
+			 						<br>
+			 						<p align = right id = incertezza_y_p ></p>
+     								<br>
+     							</td>
+			 				</tr>
+			 				<tr>
+			 					<td>
+     								<br>
+			 						<p align=left> Incertezza su x: </p> 
+			 						<br>
+			 					</td> 
+			 					<td>
+			 						<br>
+			 						<p align = right id = incertezza_x_p ></p>
+			 						<br>
+			 					</td>
+     						</tr>
+     					</table>
+     				</td>
+     				
+     			</table>
+     			<br>
+     			<div id = area_risultati3 >
+                    <br>
+                    <br> 
+                    <table>
+                    	<tr>
+                    		<td>
+                    			<p>Numero Q. su x:</p>
+                    		</td>
+                    		<td>
+                    			<p>Numero Q. su y:</p>
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<td>
+                    			<ol id = "lista_n_q_x" class = centered_list2> </ol>	
+                    		</td>
+                    		
+                    		<td>
+                    			<ol id = "lista_n_q_y" class = centered_list2> </ul>
+                    		</td>
+                    	</tr>
+                	</table>
+                </div>
+     			<br>
+     			<br>
+     			<br>
+            	<!--button id = button_5 onclick = "confirm5()"> Conferma </button-->
+                <button id = button_indietro_5 onclick = "undo5()"> Indietro </button>
+                <br>
+                <br>
+                
+                <p> ATTENZIONE: Creazione dell'algoritmo per il calcolo del valore corrispondente a ogni quadretto degli assi in corso!</p>
+                
+                <br>
+                
+                <p> ATTENZIONE: Creazione dell'algoritmo per il calcolo del grafico del modello in corso! </p>
+            </div>
+            
+            
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            
+        </center>
+        <script>
+            //initial config.
+            var area5 = document.getElementById("area5");
+            var area4 = document.getElementById("area4");
+            var area3 = document.getElementById("area3");
+            var area2 = document.getElementById("area2");
+            var area1 = document.getElementById("area1");
+            /*if (grid2 != null) {
+                document.write("ciao");
+            }*/
+            area1.style.display = 'block';
+            area2.style.display = "none";
+            area3.style.display = "none";
+            area4.style.display = "none";
+            area5.style.display = "none";
+        </script>
+
+
+        
+    </body>
+
+</html>

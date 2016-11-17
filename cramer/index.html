@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!-- ANCORA IN FASE DI LAVORAZIONE!! --->
+<html>
+	<head>
+		<meta charset = 'utf-8'>
+		<meta content='width=device-width, initial-scale=1' name='viewport'> <!-- l'ho copiato da un altro codice, per non stare a scriverlo
+																			      serve per rendere le dimensioni corrette su tutti i 
+																			      dispositivi senza far venire qualche oggetto troppo
+																			      piccolo, ad esempio su un cellulare -->
+																			      
+		<title> Cramer </title> <!-- non sono sicuro che si scriva così, meglio controllare dopo -->
+		
+		<style>
+			
+			p.title {
+				color: red;
+				font-size: 130%;
+			}
+			
+			p.sottotitolo {
+				color: green;
+				font-size: 110%;	
+			}
+			
+			input {
+				width: 45px; /* risolto cosi */
+				text-align:right
+			}	
+		</style>
+	</head>
+	
+	<body>
+		<center>
+			<p class="title"> Soluzioni di sistemi online con il metodo di Cramer! </p>
+			<br>
+			<p class="sottotitolo"> Calcoli</p>
+			<br>
+			<table width ="50px">
+				<tr>
+					<td>
+						<p> 1°eq: </p> 
+					</td>
+					
+					<td >
+						<input id = "a"> <!-- risolvere in  seguito gli input troppo larghi, che occupano troppo spazio -->
+					</td>
+					
+					<td>
+						<p> x </p>
+					</td>
+					
+					<td>
+						<input id = "b">
+					</td>
+					
+					<td> 
+						<p> y </p>
+					</td>
+					
+					<td>
+						<p> = </p>
+					</td>
+					
+					<td>
+						<input id = "c">
+					</td>
+					
+					<td>
+						<p> ; </p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<p> 2°eq: </p> 
+					</td>
+					
+					<td>
+						<input id = "ai">
+					</td>
+					
+					<td>
+						<p> x </p>
+					</td>
+					<td>
+						<input id = "bi">
+					</td>
+					
+					<td> 
+						<p> y </p>
+					</td>
+					
+					<td>
+						<p> = </p>
+					</td>
+					
+					<td>
+						<input id = "ci">
+					</td>
+					
+					<td>
+						<p> ; </p>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button id = "confirm"> Inizia i calcoli! </button>
+			<br>
+			<br>
+			<br>
+			<p id = "soluzione" class = "sottotitolo"></p>
+			<br>
+			<p id = "D_p"> </p>
+			<br>
+			<p id = "Dx_p"> </p>
+			<br>
+			<p id = "Dy_p"> </p>
+			<br>
+			<p id = "sol_x"></p>
+			<br>
+			<p id = "sol_y"></p>
+			
+			<script>
+				
+			//gestione dei segni per l'output
+			function s_neg( value ) { // s_neg = segno negativo
+				if (value >= 0 ) {
+					return " - ";
+				}
+				else {
+					return " + ";
+				}
+			}	
+			
+			function isFrc( value ) {
+				value = value+"";
+				if (value.indexOf("/") != -1) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			
+			function nm(value) {
+				return value.substring(0, value.indexOf("/"));
+			}
+			
+			function dnm(value) {
+				return value.substring(value.indexOf("/")+1, value.length );
+			}
+			
+			function mcd(a, b) {
+				mx = Math.max(b,a);
+				mn = Math.min(b,a);
+				to_return = 0;
+				for (var i = (mx*1.0)/2.0; i >= 1; i-- ) {
+					if (mx%i == 0) {
+						if (mn%i == 0 ) {
+							to_return = i;
+							break;
+						}
+						else {
+							continue;
+						}
+					}
+					else {
+						continue;
+					}
+				}
+				return i;
+			}
+			
+			function mcm(b, d) { // minimo comune multiplo tra a/b && c/d
+				mx = Math.max(b,d);
+				mn = Math.min(b,d);
+				i = 1;
+				while ( (mx*i)%mn != 0 ) {
+					i++;
+				}
+				return mx*i;
+			}
+			
+			function sottrazione(f1_n, f1_dn, f2_n, f2_dn) {
+				dn = mcm(f1_dn,f2_dn);
+				prima_parte = (dn/f1_dn)*f1_n;
+				seconda_parte = (dn/f2_dn)*f2_n;
+				n = prima_parte-seconda_parte;
+				//console.log("f1_n: "+f1_n+" f1_dn: "+f1_dn+" f2_n: "+f2_n+" f2_dn: "+f2_dn+" mcm: "+dn+" pp: "+prima_parte+" sp: "+seconda_parte+" n: "+n);
+				local_mcd = mcd ( n, dn );
+				dn = dn/local_mcd;
+				n = dn/local_mcd;
+				return [n, dn];
+				
+			}
+			
+			function divisione(f1_n, f1_dn, f2_n, f2_dn) {
+				dn = f1_dn / f2_dn;
+				n = f1_n / f2_n;
+				//inserire il MCD per semplificare tutto e farlo anche in Sottrazione()
+				local_mcd = mcd ( n, dn );
+				dn = dn/local_mcd;
+				n = dn/local_mcd;
+				return [n, dn];
+			}
+			
+			var confirm = document.getElementById("confirm");
+			
+			confirm.onclick = function () {
+				//valori della prima equazione
+				var a = document.getElementById("a").value;
+				var b = document.getElementById("b").value;
+				var c = document.getElementById("c").value;
+				
+				//valori della seconda equazione
+				var ai = document.getElementById("ai").value;
+				var bi = document.getElementById("bi").value;
+				var ci = document.getElementById("ci").value;	
+				
+				//paragrafi per esporre i risultati
+				var D_p = document.getElementById("D_p");
+				var Dx_p = document.getElementById("Dx_p");
+				var Dy_p = document.getElementById("Dy_p");
+				
+				//paragrafi per esporre le soluzioni
+				var sol_x = document.getElementById("sol_x");
+				var sol_y = document.getElementById("sol_y");
+				
+				var frazioni = false;
+				
+				if (frazioni) {
+					
+					//controllo che tutte siano frazioni
+					if (!isFrc(a)) {
+						a = a+"/1";
+					}
+					if (!isFrc(b)) {
+						b = b+"/1";
+					}
+					if (!isFrc(c)) {
+						c = c+"/1";
+					}
+					if (!isFrc(ai)) {
+						ai = ai+"/1";
+					}
+					if (!isFrc(bi)) {
+						bi = bi+"/1";
+					}
+					if (!isFrc(ci)) {
+						ci = ci+"/1";
+					}
+					
+					//separazione nominatore e denominatore
+					var a_N = nm(a);
+					var a_DN = dnm(a);
+					var b_N = nm(b);
+					var b_DN = dnm(b);
+					var c_N = nm(c);
+					var c_DN = dnm(c);
+					var ai_N = nm(ai);
+					var ai_DN = dnm(ai);
+					var bi_N = nm(bi);
+					var bi_DN = dnm(bi);
+					var ci_N = nm(ci);
+					var ci_DN = dnm(ci);
+					
+					
+					//moltiplicazioni
+					
+					//per D
+					var a_N__bi_N = (a_N*bi_N);
+					var a_DN__bi_DN = (a_DN*bi_DN);
+					
+					var ai_N__b_N = (ai_N*b_N);
+					var ai_DN__b_DN = (ai_DN*b_DN);
+					var D_N = sottrazione(a_N__bi_N,a_DN__bi_DN,ai_N__b_N,ai_DN__b_DN )[0];
+					var D_DN = sottrazione(a_N__bi_N,a_DN__bi_DN,ai_N__b_N,ai_DN__b_DN )[1];
+					
+					
+					
+					//per Dx
+					var c_N__bi_N = (c_N*bi_N);
+					var c_DN__bi_DN = (c_DN*bi_DN);
+					
+					var ci_N__b_N = (ci_N*b_N);
+					var ci_DN__b_DN = (ci_DN*b_DN);
+					
+					var Dx_N = sottrazione(c_N__bi_N,c_DN__bi_DN,ci_N__b_N,ci_DN__b_DN )[0];
+					var Dx_DN = sottrazione(c_N__bi_N,c_DN__bi_DN,ci_N__b_N,ci_DN__b_DN )[1];
+				
+					//per Dy
+					var a_N__ci_N = (a_N*ci_N);
+					var a_DN__ci_DN = (a_DN*ci_DN);
+					
+					var ai_N__c_N = (ai_N*c_N);
+					var ai_DN__c_DN = (ai_DN*c_DN);
+					
+					var Dy_N = sottrazione(a_N__ci_N,a_DN__ci_DN,ai_N__c_N,ai_DN__c_DN )[0];
+					var Dy_DN = sottrazione(a_N__ci_N,a_DN__ci_DN,ai_N__c_N,ai_DN__c_DN )[1];
+					
+					//console.log("dn"+D_N+" ddn"+D_DN);
+					
+					var sol_x_value_N = divisione(Dx_N, Dx_DN, D_N, D_DN)[0];
+					var sol_y_value_N = divisione(Dy_N, Dy_DN, D_N, D_DN)[0];
+					var sol_x_value_DN = divisione(Dx_N, Dx_DN, D_N, D_DN)[1];
+					var sol_y_value_DN = divisione(Dy_N, Dy_DN, D_N, D_DN)[1];
+					
+					var D_value = (D_N*1.0)/(D_DN*1.0);
+					var Dx_value = (Dx_N*1.0)/(Dx_DN*1.0);
+					var Dy_value = (Dy_N*1.0)/(Dy_DN*1.0);
+					var sol_y_value = (sol_y_value_N*1.0)/(sol_y_value_DN*1.0);
+					var sol_x_value = (sol_x_value_N*1.0)/(sol_x_value_DN*1.0);
+					
+					//gestioni errori per la divisione fratto zero
+					if (D_value == 0) {
+					
+						if (Dx_value == 0) {
+							sol_x_value = "Infinito";
+						}
+						else {
+							sol_x_value = "Impossibile";
+						}
+					
+						if (Dy_value == 0) {
+							sol_y_value = "Infinito";
+						}
+						else{
+							sol_y_value = "Impossibile";
+						}
+					
+					} 
+				
+				
+					//variabili per l'esposizione dei risultati
+					var D_text = "D = ("+a+" * "+bi+") - ("+ai+" * "+b+") = "+ a_bi + s_neg(ai_b) + ai_b+" = "+D_value;
+					var Dx_text =  "Dx = ("+c+" * "+bi+") - ("+ci+" * "+b+") = "+ c_bi + s_neg(ci_b) + ci_b+" = "+Dx_value;
+					var Dy_text = "Dy = ("+a+" * "+ci+") - ("+ai+" * "+c+") = "+ a_ci + s_neg(ai_c) + ai_c+" = "+Dy_value;
+					var x_text = "X = Dx/D = "+Dx_value+" / "+D_value+" = "+sol_x_value; 
+					var y_text = "Y = Dy/D = "+Dy_value+" / "+D_value+" = "+sol_y_value;
+				
+				}
+				else {
+					a = eval(a);
+					b = eval(b);
+					c = eval(c);
+					ai = eval(ai);
+					bi = eval(bi);
+					ci = eval(ci);
+								
+				
+					//compilazione varie variabili necessarie all'esposizione dei risultati e al calcolo degli stessi
+					//per D
+					var a_bi = a*bi;
+					var ai_b = ai*b;
+					var D_value = a_bi-ai_b;
+				
+					//per Dx
+					var c_bi = c*bi;
+					var ci_b = ci*b;
+					var Dx_value = c_bi-ci_b;
+				
+					//per Dy
+					var a_ci = a*ci;
+					var ai_c = ai*c;
+					var Dy_value = a_ci-ai_c;
+				
+					//soluzione x
+					var sol_x_value = Dx_value/D_value;
+				
+					//soluzione y
+					var sol_y_value = Dy_value/D_value;
+				
+				
+					//gestioni errori per la divisione fratto zero
+					if (D_value == 0) {
+					
+						if (Dx_value == 0) {
+							sol_x_value = "Indeterminato";
+						}
+						else {
+							sol_x_value = "Impossibile";
+						}
+					
+						if (Dy_value == 0) {
+							sol_y_value = "Indeterminato";
+						}
+						else{
+							sol_y_value = "Impossibile";
+						}
+					
+					} 
+				
+				
+					//variabili per l'esposizione dei risultati
+					var D_text = "D = ("+a+" * "+bi+") - ("+ai+" * "+b+") = "+ a_bi + s_neg(ai_b) + Math.abs(ai_b)+" = "+D_value;
+					var Dx_text =  "Dx = ("+c+" * "+bi+") - ("+ci+" * "+b+") = "+ c_bi + s_neg(ci_b) + Math.abs(ci_b)+" = "+Dx_value;
+					var Dy_text = "Dy = ("+a+" * "+ci+") - ("+ai+" * "+c+") = "+ a_ci + s_neg(ai_c) + Math.abs(ai_c)+" = "+Dy_value;
+					var x_text = "X = Dx/D = "+Dx_value+" / "+D_value+" = "+sol_x_value; 
+					var y_text = "Y = Dy/D = "+Dy_value+" / "+D_value+" = "+sol_y_value;
+				}
+				//inserimento dei testi con i risultati nei relativi paragrafi
+				D_p.innerHTML = D_text;
+				Dx_p.innerHTML = Dx_text;
+				Dy_p.innerHTML = Dy_text;
+				sol_x.innerHTML = x_text;
+				sol_y.innerHTML = y_text;
+				
+				//inserimento del sottotitolo "soluzioni"
+				
+				var sol_p = document.getElementById("soluzione");
+				sol_p.innerHTML = "Soluzione";
+				
+			}
+			</script>
+		</center>
+	</body>
+</html>
