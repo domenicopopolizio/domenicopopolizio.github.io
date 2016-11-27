@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page Title</title>
+		<style>
+		    p#output{
+		        text-align: right;
+		    } 
+		    p#title {
+		        color: red;
+		        text-align: center;
+		    }
+		    button {
+		        width: 100%;
+		        height: 75%;
+		    }
+		</style>
+	</head>
+	<body>
+		<table width = 100% height = 70%>
+		    
+		        <p id=title> Calculator by Popolizio Domenico </p>
+		        <br>
+		        <p id = "output">0</p>
+		        <br>
+		    <tr>
+		        <td>
+		           <button id = "7">7</button> 
+		        </td>
+		        <td>
+		            <button id = "8">8</button> 
+		        </td>
+		        <td>
+		            <button id = "9">9</button> 
+		        </td>
+		        <td>
+		            <button id = "+">+</button> 
+		        </td>
+		        
+		    </tr>
+		    <tr>
+		        <td>
+		           <button id = "4">4</button> 
+		        </td>
+		        <td>
+		            <button id = "5">5</button> 
+		        </td>
+		        <td>
+		            <button id = "6">6</button> 
+		        </td>
+		        <td>
+		            <button id = "-">-</button> 
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		           <button id = "1">1</button> 
+		        </td>
+		        <td>
+		            <button id = "2">2</button> 
+		        </td>
+		        <td>
+		            <button id = "3">3</button> 
+		        </td>
+		        <td>
+		            <button id = "/">/</button> 
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		           <button id = ".">.</button> 
+		        </td>
+		        <td>
+		            <button id = "0">0</button> 
+		        </td>
+		        <td>
+		            <button id = "=">=</button> 
+		        </td>
+		        <td>
+		            <button id = "*">*</button> 
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		           <button id = "(">(</button> 
+		        </td>
+		        <td>
+		            <button id = ")">)</button> 
+		        </td>
+		        <td>
+		            <button id = "delete"> del </button> 
+		        </td>
+		        <td>
+		            <button id = "cancel"> canc </button> 
+		        </td>
+		    </tr>
+		</table>
+		<script>
+		    var one = document.getElementById("1");
+            var two = document.getElementById("2");
+            var three = document.getElementById("3");
+            var four = document.getElementById("4");
+            var five = document.getElementById("5");
+            var six = document.getElementById("6");
+            var seven = document.getElementById("7");
+            var eight = document.getElementById("8");
+            var nine = document.getElementById("9");
+            var zero = document.getElementById("0");
+            var plus = document.getElementById("+");
+            var minus = document.getElementById("-");
+            var obelus = document.getElementById("/");
+            var times = document.getElementById("*");
+            var conf = document.getElementById("=");
+            var dot = document.getElementById(".");
+            var brackopen = document.getElementById("(");
+            var brackclose = document.getElementById(")");
+            var del = document.getElementById("delete");
+            var canc = document.getElementById("cancel");
+            var output = document.getElementById("output");
+        
+            
+            var operation = "";
+            
+            
+            brackopen.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "(";
+                output.innerHTML = operation;
+            }
+            brackclose.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += ")";
+                output.innerHTML = operation;
+            }
+            one.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "1";
+                output.innerHTML = operation;
+            };
+            two.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "2";
+                output.innerHTML = operation;
+            };
+            three.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "3";
+                output.innerHTML = operation;
+            };
+            four.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "4";
+                output.innerHTML = operation;
+            };
+            five.onclick = function () {
+               if (operation == "0") {
+                    operation = "";
+                }
+                operation += "5";
+                output.innerHTML = operation;
+            };
+            six.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "6";
+                output.innerHTML = operation;
+            };
+            seven.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "7";
+                output.innerHTML = operation;
+            };
+            eight.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "8";
+                output.innerHTML = operation;
+            };
+            nine.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "9";
+                output.innerHTML = operation;
+            };
+            zero.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "0";
+                output.innerHTML = operation;
+            };
+            plus.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "+";
+                output.innerHTML = operation;
+            };
+            minus.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "-";
+                output.innerHTML = operation;
+            };
+            obelus.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "/";
+                output.innerHTML = operation;
+            };
+            times.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation += "*";
+                output.innerHTML = operation;
+            };
+            dot.onclick = function () {
+                operation += ".";
+                output.innerHTML = operation;
+            };
+            canc.onclick = function () {
+                if (operation == "0") {
+                    operation = "";
+                }
+                operation = "0";
+                output.innerHTML = operation;
+            };
+            del.onclick = function () {
+                operation = operation.substring(0, operation.length - 1);
+                if (operation != "") {
+                    output.innerHTML = operation;
+                }
+                else {
+                    operation = "0";
+                    output.innerHTML = operation;
+                }
+            };
+            conf.onclick = function () {
+                operation = eval(operation);
+                operation += "";
+                output.innerHTML = operation;
+            };
+		</script>
+	</body>
+</html>
