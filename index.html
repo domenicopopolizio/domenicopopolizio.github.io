@@ -1,73 +1,486 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html> 
 	<head>
-		<meta charset = "utf-8">
-		<meta content='width=device-width, initial-scale=1' name='viewport'>
-				
-		<title> 
-			Domenico Popolizio
-		</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="velocity.min.js"></script>
+
 		<style>
-					
-			p.title {
-				color: red;
-				font-size: 130%;
+			html {
+				color: white;
 			}
-			
-			p.subtitle {
-				color: green;
-				font-size: 110%;	
+			body {
+				margin: 0;
+				border: 0;
+				padding: 0;
+				background-color: rgb(43, 42, 40);
+
 			}
+			.popup {
+				position: fixed;
+				/*background-color: rgb(51, 251, 141);* /
+				border: 2px solid black;*/
+			}
+
+			canvas {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+
+			.popuptext {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+
+			.text {
+				position: absolute;
+				top: 21%;
+				left:6%;
 				
+				height: 100%;
+				overflow: hidden;
+				overflow-x: hidden;
+			}
+
+
+			.head {
+				width: 100%;
+				height: 20%;
+				left:0px;
+				top: 0px;
+			}
+
+			.infotext {
+				position: absolute;
+				left: 5%;
+				top: 7%;
+				width: 85%;
+				overflow: hidden;
+			}
+
+			.info {
+				width: 80%;
+				height: 75%;
+				bottom: 0px;
+				left: 0px;
+
+			}
+
+			.close {
+				height: 19%;
+				bottom: 0px;
+				right: 0px;
+				
+			}
+
+			img#gitlogo {
+				position: absolute;
+			}
+
+			a#gitredirect {
+				position: absolute;
+				top: 55px;
+				right: 130px;
+				display: none;
+			}
+
+			img#viewmore {
+				position: absolute;
+				bottom: 15%;
+				right: 10%;
+
+				width: 60%;
+				display: none;
+			}
+
+			#title{
+				position: absolute;
+				left:1%;
+				top: 5%;
+				font-size: 3em ;
+			}
+
+			#clock {
+				position: absolute;
+				font-size: 3em;
+				top: 42%;
+				right: 15%;
+			}
+			.icon {
+				position: absolute;
+				width: 53px;
+				height: 53px;
+				stroke-width: 0;
+				stroke: white;
+				fill: white;
+				bottom: 10px;
+				right: 10px;
+			}
+			@media (max-width : 750px) {
+				img#viewmore{
+					display: none;
+				}
+				#title{
+					position: absolute;
+					left:1%;
+					top: 5%;
+					font-size: 1.74em ;
+				}
+
+				#clock {
+					position: absolute;
+					font-size: 1.74em;
+					top: 42%;
+					right: 15%;
+				}
+				
+
 		</style>
 	</head>
-	
-	<body>
-		<center>
-			<p class = title> Popolizio Domenico </p>
-			<p class = subtitle> ATTENZIONE, SITO IN STATO ALPHA, LA PAGINA E' SOLO INFORMATIVA, MA VERRÀ AGGIORNATA IN SEGUITO </p>
-		</center>
-		
-		<p> Sono Popolizio Domenico, da questo sito potrete accedere con facilità ad alcuni semplici siti statici </p>
-		<p> che ho creato nel corso del tempo, non sono molti, ma pian piano ne verranno aggiunti altri </p>
-		<br>
-		<p> Questa è la lista dei siti creati per ora: </p>
-		<ul>
-			<li> 
-				<a href="https://domenicopopolizio.github.io/cramer"> Risolvi sistemi di primo grado con Cramer online! </a> 
-				<br>
-			</li>
-			
-			<li> 
-				<a href="https://domenicopopolizio.github.io/frameset"> Progetto fatto a scuola con html4 </a> 
-				<br>
-			</li>
 
-			<li> 
-				<a href="https://domenicopopolizio.github.io/fisicautomatica"> [!BETA!] Risolvi le prove fatte in laboratorio di fisica [!BETA!] </a> 
-				<br>
-			</li>
-		</ul>
+	<body>
+		<div class="text">
+			<p>
+
+				<font size="4" id="pagetext">
+					Ecco i miei progetti pubblici:
+			 	</font>
+			 </p>
+		</div>
+
+		<img src="viewmore.png" id='viewmore'/>
+
+		<div class="head popup">
+			<canvas class="headcanvas" id="headcanvas" >
+			</canvas>
+			
+			<div class="headtext popuptext" id='title'> 
+				Domenico Popolizio's Site
+			</div>
+			<div id='clock'></div>
+		</div>
 		
+
 		
-		<br>
-		<br>
-		<p> La repository di questo sito e di quelli collegati, licenza compresa, sono su github all'indirizzo: </p>
-		<a href="https://github.com/domenicopopolizio/domenicopopolizio.github.io"> https://github.com/domenicopopolizio/domenicopopolizio.github.io </a>
-		<br>
-		<br>
-		<br>
-		<p> Profilo github: </p>
-		<a href="https://github.com/domenicopopolizio"> https://github.com/domenicopopolizio </a>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<center>
-			<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">https://domenicopopolizio.github.io/</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://domenicopopolizio.github.io/" property="cc:attributionName" rel="cc:attributionURL">Domenico Popolizio</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
-		</center>
+		<div class="info popup">
+			<canvas class="canvas" id="infocanvas">
+			</canvas>
+			
+			<div class="infotext popuptext" id='infotext'> 
+			
+			</div>
+
+			<a href='https://github.com/domenicopopolizio/domenicopopolizio.github.io' id='git'><img src="gitlogo.png" id='gitlogo'/></a>
+			<a href="https://github.com/domenicopopolizio/domenicopopolizio.github.io" id='gitredirect' target='_self'> Guarda su github</a>
+		</div>
+		
+		<div class="close popup">
+			<canvas id="closecanvas">
+			</canvas>
+			
+			<div id="closeicon"> 
+				<svg >
+					<symbol id="icon-close" viewBox="0 0 22 28">
+						<title>
+							close
+						</title>
+						<path d="M20.281 20.656c0 0.391-0.156 0.781-0.438 1.062l-2.125 2.125c-0.281 0.281-0.672 0.438-1.062 0.438s-0.781-0.156-1.062-0.438l-4.594-4.594-4.594 4.594c-0.281 0.281-0.672 0.438-1.062 0.438s-0.781-0.156-1.062-0.438l-2.125-2.125c-0.281-0.281-0.438-0.672-0.438-1.062s0.156-0.781 0.438-1.062l4.594-4.594-4.594-4.594c-0.281-0.281-0.438-0.672-0.438-1.062s0.156-0.781 0.438-1.062l2.125-2.125c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l4.594 4.594 4.594-4.594c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l2.125 2.125c0.281 0.281 0.438 0.672 0.438 1.062s-0.156 0.781-0.438 1.062l-4.594 4.594 4.594 4.594c0.281 0.281 0.438 0.672 0.438 1.062z"></path>
+					</symbol>
+				</svg>
+				<svg class="icon icon-close"><use xlink:href="#icon-close" ></use></svg>
+			</div>
+		</div>
+		
+		<script>
+			var projects = {
+				html : [
+					{
+						name : "Cramer",
+						info : "Sito web per risolvere sistemi di primo grado con il metodo di cramer",
+						pagina : "https://domenicopopolizio.github.io/cramer/",
+						github : "https://github.com/domenicopopolizio/domenicopopolizio.github.io/tree/master/cramer",
+					},
+					{	
+						name : "Risolutore di fisica",
+						info : "Sito web in FASE BETA per risolvere problemi scolastici nei laboratori di fisica ",
+						pagina: "https://domenicopopolizio.github.io/fisicautomatica/",
+						github: "https://github.com/domenicopopolizio/domenicopopolizio.github.io/tree/master/fisicautomatica",
+					},
+					{
+						name : "Frameset example",
+						info : "Progettino scolastico per esercitarsi con l'uso dei frameset in html4",
+						pagina: "https://domenicopopolizio.github.io/frameset/",
+						github: "https://github.com/domenicopopolizio/domenicopopolizio.github.io/tree/master/frameset",
+					}
+				],
+
+				/*python : [
+				],*/
+
+				c : [
+					{
+						name: "Triangolo dati i lati",
+						info: "Programmino relizzato a scuola per avere informazioni di un triangolo dati i suoi lati",
+						pagina : "https://github.com/domenicopopolizio/some_c_programs/tree/master/calcoli_triangolo_dati_lati",
+						github : "https://github.com/domenicopopolizio/some_c_programs/tree/master/calcoli_triangolo_dati_lati",
+
+					},
+					{
+						name: "Equazioni di secondo grado",
+						info: "Programma realizzato a scuola per risolvere equazioni di secondo grado con il C",
+						pagina: "https://github.com/domenicopopolizio/some_c_programs/tree/master/equazioni_di_secondo_grado",
+						github: "https://github.com/domenicopopolizio/some_c_programs/tree/master/equazioni_di_secondo_grado"			
+					}
+				],
+			};
+			function compile_list(key) {
+				t = "<li><p>Progetti scritti in "+key+":</p><ol>";
+					for (var i = 0; i < projects[key].length; i++) {
+						t+='<li><p onclick=\"info(projects[\''+key+'\']['+i+']);\"><u>'+projects[key][i].name+'</u></p></li>';
+					} 
+				t += "</ol></li><br>";
+				return t;
+			}
+			function write_page() {
+				keys = Object.keys(projects);
+				text = '<ul>'
+				for (var i = 0; i < keys.length; i++) {
+					text += compile_list(keys[i]);
+				}
+				text += '</ul>'
+				$("#pagetext").append(text);
+			}
+			function open_info() {
+				$(".info").velocity({
+					'bottom':"0px",
+					'left':"0px",
+				});
+				$(".close").velocity({
+					'bottom':'0px',
+					'right':'0px',
+				});
+			}
+			function close_info() {
+				$(".close").velocity({
+					'bottom':'-19%',
+					'right':'-'+$(".close").height()+'%'
+				});
+				$(".info").velocity(
+					{
+						'bottom':-(($(window).height()/100)*60)+"px",
+						'left':-($('.info').width()-($('.info').height()-(($(window).height()/100)*60)))+"px",
+					}, 
+					function()
+					{
+						$("#infotext").html('');
+						$('a#git').attr('href', 'https://github.com/domenicopopolizio/domenicopopolizio.github.io');
+					}
+				);
+				
+			}
+			function info(obj) {
+				console.log(obj);
+				text = '';
+				text += '<br><font size=6><p><br>'+obj.name+'</p></font>';
+				
+				text += '<font size=4.5><p>'+obj.info+'</p></font>';
+				text += '<br>';
+				if (obj.pagina != obj.github) {
+					text += '<a href="'+obj.pagina+'">Clicca qui per vedere la sito!</a>'
+				} else {
+					text += '<a href="'+obj.pagina+'">Clicca qui per vedere il codice!</a>'
+				}
+				
+				$('a#git').attr('href', obj.github);
+				$("#infotext").html(text);
+
+				open_info();
+			}
+			function updateClock() {
+				d = new Date();
+				o = d.getHours()+'';
+				if (o.length == 1) {
+					o = '0'+o;
+				}
+				else if (o.length == 0) {
+					o += '00';
+				}
+
+				m = d.getMinutes()+'';
+				if (m.length == 1) {
+					m = '0'+m;
+				}
+				else if (o.length == 0) {
+					m += '00';
+				}
+				ora = o+':'+m;
+				$('#clock').html(ora);
+				requestAnimationFrame(updateClock);
+			}
+
+ 			$(
+				function () {
+
+					write_page();
+					requestAnimationFrame(updateClock);
+
+			
+					$(".head").css({
+						'top':'-20%',
+					});
+					$(".info").css({
+						'bottom':'-75%',
+						'left':"-80%",
+					});
+					$(".close").css({
+						'bottom':'-19%',
+						'right':'-'+$(".close").height()+'%'
+					});
+
+					$(".head").velocity({
+						'top':'0px',
+					});
+					$(".info").velocity({
+						'bottom':-(($(window).height()/100)*60)+"px",
+						'left':-($('.info').width()-($('.info').height()-(($(window).height()/100)*60)))+"px",
+					});
+					/*$(".info").velocity({
+						'bottom':'0px',
+						'left':"0px",
+					});
+					$(".close").velocity({
+						'bottom':'0px',
+						'right':'0px',
+					});*/
+					//$(".info").click(open_info);
+					$(".close").click(close_info);
+
+					var generalFillStyle = 'rgb(252, 207, 14)'; 
+					var firstAdjust = true;
+					function adjust() {
+						close_info();
+						var w = $(window).width();
+						var h = $(window).height();
+						var pw = w/100;
+						var ph = h/100;
+ 
+						/*if (!firstAdjust) {
+							$(".close").velocity({
+								'bottom':'-19%',
+								'right':'-'+$(".close").height()+'%'
+							});
+							$(".info").velocity(
+								{
+									'bottom':-(($(window).height()/100)*55)+"px",
+									'left':-($('.info').width()-($('.info').height()-(($(window).height()/100)*55)))+"px",
+								}, 
+								function()
+								{
+									$("#infotext").html('');
+									$('a#git').attr('href', 'https://github.com/domenicopopolizio/domenicopopolizio.github.io');
+								}
+							);
+						}*/
+						firstAdjust = false;
+
+
+						$(".close").css({"width":$(".close").height()+"px"});
+
+
+						$('#gitlogo').css( {
+							'position':'absolute',
+							'top': (($('.info').width()-($('.info').width()-($('.info').height()-(($(window).height()/100)*60))))-64)/2+10+'px',
+							'right': (($('.info').width()-($('.info').width()-($('.info').height()-(($(window).height()/100)*60))))-64)/2+10+'px',
+							'width' :'60px',
+						});
+						
+
+
+
+						$('#headcanvas').attr("width",$(".head").width());
+   						$('#headcanvas').attr("height",$(".head").height());
+						var headDOM = document.getElementById('headcanvas');
+						var head = headDOM.getContext('2d');
+
+						pwh = headDOM.width/100;   //percenteage width headdom
+						phh = headDOM.height/100;  //percentage height headdom
+
+						//head.clearRect(0, 0, headDOM.width, headDOM.height);
+						head.fillStyle = generalFillStyle;
+						head.beginPath();
+						head.moveTo(0, 0);
+						head.lineTo(pwh*0, phh*70);
+						head.lineTo(pwh*85, phh*100);
+						head.lineTo(pwh*100, phh*50);
+						head.lineTo(pwh*100, phh*0);
+						head.closePath();
+						head.fill();
+
+
+						
+						$('#infocanvas').attr("width",$(".info").width());
+   						$('#infocanvas').attr("height",$(".info").height());
+   						var infoDOM = document.getElementById('infocanvas');
+						var info = infoDOM.getContext('2d');
+
+						pwi = infoDOM.width/100;   //percenteage width infodom
+						phi = infoDOM.height/100;  //percentage height infodom
+
+						//head.clearRect(0, 0, headDOM.width, headDOM.height);
+						info.fillStyle = generalFillStyle;
+						info.beginPath();
+						info.moveTo(pwi*0, phi*100);
+						info.lineTo(pwi*0, phi*10);
+						info.lineTo(pwi*100, phi*0);
+						info.lineTo(pwi*87, phi*100);
+						
+						info.closePath();
+						info.fill();
+
+
+
+						$('#closecanvas').attr("width",$(".close").width());
+   						$('#closecanvas').attr("height",$(".close").height());
+   						var closeDOM = document.getElementById('closecanvas');
+						var close = closeDOM.getContext('2d');
+
+						pwi = closeDOM.width/100;   //percenteage width closedom
+						phi = closeDOM.height/100;  //percentage height closedom
+
+						//head.clearRect(0, 0, headDOM.width, headDOM.height);
+						close.fillStyle = generalFillStyle;
+						close.beginPath();
+						close.moveTo(pwi*100, phi*100);
+						close.lineTo(pwi*22, phi*100);
+						close.lineTo(pwi*39, phi*0);
+						close.lineTo(pwi*100, phi*20);
+						
+						
+						close.closePath();
+						close.fill();
+						
+					}
+
+
+					$(window).resize(
+						function() {
+							adjust();
+						}
+					);
+					adjust(); 
+
+
+
+
+				}
+ 			);
+		</script>
 	</body>
-	
-	
 </html>
+
+
+
+
