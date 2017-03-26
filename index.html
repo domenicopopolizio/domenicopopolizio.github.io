@@ -1,10 +1,10 @@
-<!doctype html>
-<html> 
-	<head>
-		<meta charset="utf-8">
+<!DOCTYPE html>
+<!-- saved from url=(0041)file:///C:/xampp/htdocs/github/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="jquery-3.1.1.min.js"></script>
-		<script src="velocity.min.js"></script>
+		<script src="./index_files/jquery-3.1.1.min.js.download"></script>
+		<script src="./index_files/velocity.min.js.download"></script>
 
 		<style>
 			html {
@@ -127,24 +127,31 @@
 			}
 			
 
+			#infotitle {
+				position: absolute;
+				top: 17%;
+				left: 5%;
+				height: 30%;
+				overflow-y: hidden;
+			}
 			.infotext {
 				position: absolute;
 				left: 5%;
-				top: 7%;
-				width: 85%;
-				height: 75%;
-				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				
 			}
 
 			#infoRedirect {
 				position: absolute;
 				left: 5%;
-				bottom: 7%;
+				bottom: 3%;
 			}
 			.infoarea {
 				position: absolute;
-				width: 90%;
-				height: 75%;
+				width: 80%;
+				height: 37%;
+				top: 46%;
 				overflow-y: auto;
 				overflow-x: hidden;
 			}
@@ -171,10 +178,10 @@
 
 	<body>
 		<div class="text">
-			<div id='pretext'></div>
+			<div id="pretext"></div>
 			<p>
-				<font size="4" id='infofont'>
-					<p>Sono Popolizio Domenico, un ragazzo a cui piace programmare.</p>
+				<font size="4" id="infofont">
+					</font></p><p><font size="4" id="infofont">Sono Popolizio Domenico, un ragazzo a cui piace programmare.</font></p><font size="4" id="infofont">
 					<p>Non tendo spesso a pubblicare i miei progetti, ma da qualche tempo a questa
 					parte ho deciso di iniziare a farlo, <br>tra i progetti pubblicati ci sono codici scolastici e altri creati indipendentemente.
 					</p><p>
@@ -182,21 +189,21 @@
 					più dettagliato su questo sito</p><br><br>
 					Ecco la lista:
 			 	
-			 		<span id='pagetext'></span>
+			 		<span id="pagetext"><ul><li><p>Progetti scritti in html:</p><ol><li><p onclick="info(projects[&#39;html&#39;][0]);"><u>Cramer</u></p></li><li><p onclick="info(projects[&#39;html&#39;][1]);"><u>Risolutore di fisica</u></p></li><li><p onclick="info(projects[&#39;html&#39;][2]);"><u>Frameset example</u></p></li></ol></li><br><li><p>Progetti scritti in C:</p><ol><li><p onclick="info(projects[&#39;C&#39;][0]);"><u>Triangolo dati i lati</u></p></li><li><p onclick="info(projects[&#39;C&#39;][1]);"><u>Equazioni di secondo grado</u></p></li></ol></li><br></ul></span>
 
 					<br>
 					Mi potete trovare su github al seguente indirizzo:<br>
-					<a href='https://github.com/domenicopopolizio'><font color='white'>https://github.com/domenicopopolizio</font></a><br>
+					<a href="https://github.com/domenicopopolizio"><font color="white">https://github.com/domenicopopolizio</font></a><br>
 					
 					<br>E su SoloLearn* al link:<br>
-					<a href='https://www.sololearn.com/Profile/829585'><font color='white'>https://www.sololearn.com/Profile/829585</font>
+					<a href="https://www.sololearn.com/Profile/829585"><font color="white">https://www.sololearn.com/Profile/829585</font>
 					</a><br>
 					<br>
 					<br>
 					<br>
 					<p>
 					*I progetti pubblicati su SoloLearn <i>non</i> sono presenti in questo sito, eccetto quelli
-					presenti anche su GitHub.<br>Per vederli visitare il <a href='https://www.sololearn.com/Profile/829585'><font color='white'>mio profilo su SoloLearn</font></a>.
+					presenti anche su GitHub.<br>Per vederli visitare il <a href="https://www.sololearn.com/Profile/829585"><font color="white">mio profilo su SoloLearn</font></a>.
 					</p><p>
 					<br>
 					P.S. I miei progetti non finiscono qui, questi sono solo alcuni, <br>
@@ -221,44 +228,47 @@
 					<br>
 
 			 	</font>
-			 </p>
+			 <p></p>
 		</div>
 		
-		<img src="viewmore.png" id='viewmore'/>
+		<img src="./index_files/viewmore.png" id="viewmore">
 
-		<div class="head popup">
-			<canvas class="headcanvas" id="headcanvas" >
+		<div class="head popup" style="top: 0px;">
+			<canvas class="headcanvas" id="headcanvas" width="1024" height="117.796875">
 			</canvas>
 			
-			<div class="headtext popuptext" id='title'> 
+			<div class="headtext popuptext" id="title"> 
 				Domenico Popolizio's Site
 			</div>
-			<div id='clock'></div>
+			<div id="clock">11:44</div>
 		</div>
 		
 
 		
-		<div class="info popup">
-			<canvas class="canvas" id="infocanvas">
+		<div class="info popup" style="bottom: -353.4px; left: -730.837px;">
+			<canvas class="canvas" id="infocanvas" width="819.1875" height="441.75">
 			</canvas>
+
+			<div id="infotitle"><font size="6"><p>Risolutore di fisica</p></font></div>
 			
-			<div class="infotext popuptext" id='infotext'> 
-			
+
+			<div class="infotext popuptext" id="infotext">
+				
 			</div>
 
-			<div id="infoRedirect">
-			</div>
 
-			<a href='https://github.com/domenicopopolizio/domenicopopolizio.github.io' id='git'><img src="gitlogo.png" id='gitlogo'/></a>
-			<a href="https://github.com/domenicopopolizio/domenicopopolizio.github.io" id='gitredirect' target='_self'> Guarda su github</a>
+			<div id="infoRedirect"><a href="https://domenicopopolizio.github.io/fisicautomatica/">Clicca qui per vedere la pagina!</a></div>
+
+			<a href="https://github.com/domenicopopolizio/domenicopopolizio.github.io/tree/master/fisicautomatica" id="git"><img src="./index_files/gitlogo.png" id="gitlogo" style="position: absolute; top: 22.175px; right: 22.175px; width: 60px;"></a>
+			<a href="https://github.com/domenicopopolizio/domenicopopolizio.github.io" id="gitredirect"> Guarda su github</a>
 		</div>
 		
-		<div class="close popup">
-			<canvas id="closecanvas">
+		<div class="close popup" style="bottom: -19%; right: -111.906%; width: 111.906px;">
+			<canvas id="closecanvas" width="111.90625" height="111.90625">
 			</canvas>
 			
 			<div id="closeicon"> 
-				<svg >
+				<svg>
 					<symbol id="icon-close" viewBox="0 0 22 28">
 						<title>
 							close
@@ -266,7 +276,7 @@
 						<path d="M20.281 20.656c0 0.391-0.156 0.781-0.438 1.062l-2.125 2.125c-0.281 0.281-0.672 0.438-1.062 0.438s-0.781-0.156-1.062-0.438l-4.594-4.594-4.594 4.594c-0.281 0.281-0.672 0.438-1.062 0.438s-0.781-0.156-1.062-0.438l-2.125-2.125c-0.281-0.281-0.438-0.672-0.438-1.062s0.156-0.781 0.438-1.062l4.594-4.594-4.594-4.594c-0.281-0.281-0.438-0.672-0.438-1.062s0.156-0.781 0.438-1.062l2.125-2.125c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l4.594 4.594 4.594-4.594c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l2.125 2.125c0.281 0.281 0.438 0.672 0.438 1.062s-0.156 0.781-0.438 1.062l-4.594 4.594 4.594 4.594c0.281 0.281 0.438 0.672 0.438 1.062z"></path>
 					</symbol>
 				</svg>
-				<svg class="icon icon-close"><use xlink:href="#icon-close" ></use></svg>
+				<svg class="icon icon-close"><use xlink:href="#icon-close"></use></svg>
 			</div>
 		</div>
 		
@@ -281,8 +291,7 @@
 					},
 					{	
 						name : "Risolutore di fisica",
-						info : "Sito web in FASE BETA per risolvere problemi scolastici nei laboratori di fisica ",
-						pagina: "https://domenicopopolizio.github.io/fisicautomatica/",
+						info : "Sito web in FASE BETA per risolvere problemi scolastici nei laboratori di fisica.",
 						github: "https://github.com/domenicopopolizio/domenicopopolizio.github.io/tree/master/fisicautomatica",
 					},
 					{
@@ -359,19 +368,22 @@
 			}
 			function info(obj) {
 				console.log(obj);
+				title = '';
 				text = '';
-				text += '<br><font size=6><p><br>'+obj.name+'</p></font>';
+				textRedirect = '';
+				
+				title += '<font size=6><p>'+obj.name+'</p></font>';
 				
 				text += '<font size=4.5 class="infoarea"><p>'+obj.info+'</p></font>';
 				text += '<br>';
-				textRedirect = '';
 				if (obj.pagina != obj.github) {
-					textRedirect = '<a href="'+obj.pagina+'">Clicca qui per vedere il sito!</a>'
+					textRedirect = '<a href="'+obj.pagina+'">Clicca qui per vedere la pagina!</a>'
 				} else {
 					textRedirect = '<a href="'+obj.pagina+'">Clicca qui per vedere il codice!</a>'
 				}
 				
 				$('a#git').attr('href', obj.github);
+				$('#infotitle').html(title);
 				$("#infotext").html(text);
 				$('#infoRedirect').html(textRedirect);
 				open_info();
@@ -557,9 +569,10 @@
 				}
  			);
 		</script>
-	</body>
-</html>
+	
 
 
 
 
+
+</body></html>
