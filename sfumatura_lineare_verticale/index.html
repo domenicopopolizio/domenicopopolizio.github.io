@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+	<head>
+		<title> Elemento canvas_ sfumatura linmeare dal'alto al basso </title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<canvas id="tela" width="645" height="250" style="border: 1px solid red">
+			<script type="text/javascript">
+				var canvas =document.getElementById("tela");
+				var ctx=canvas.getContext("2d");
+
+				var my_gradient=ctx.createLinearGradient(0,0,0,250);
+				my_gradient.addColorStop(0, "green");
+				my_gradient.addColorStop(1,"white");
+				ctx.fillStyle=my_gradient;
+				ctx.fillRect(0,0,645,250);
+			</script>
+		</canvas>
+	</body>
+</html>
