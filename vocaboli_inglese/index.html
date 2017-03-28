@@ -66,11 +66,12 @@
 				ask();
 				$("#confirm").on("click",
 					function () {
-						if ($("#answer").val() == dict[question]) {
-							$("#result").html("<font color='00ff00'>Ultima risposta corretta!</font><br>Risposta data: '"+$("#answer").val()+"'<br>Risposta corretta: '"+dict[question]+"'");
+						answer = $("#answer").val().toLowerCase();
+						if ( answer == dict[question]) {
+							$("#result").html("<font color='00ff00'>Ultima risposta corretta!</font><br>Risposta data: '"+answer+"'<br>Risposta corretta: '"+dict[question]+"'");
 						}
 						else {
-							$("#result").html("<font color='ff0000'>Ultima risposta errata!</font><br>Risposta data: '"+$("#answer").val()+"'<br>Risposta corretta: '"+dict[question]+"'");
+							$("#result").html("<font color='ff0000'>Ultima risposta errata!</font><br>Risposta data: '"+answer+"'<br>Risposta corretta: '"+dict[question]+"'");
 						}
 						$("#answer").val(""); 
 						ask();
