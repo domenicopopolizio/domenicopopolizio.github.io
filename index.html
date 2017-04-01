@@ -102,6 +102,7 @@
 			.close{
 				bottom:-19%;
 				right:-100%;
+
 			}
 			img#gitlogo {
 				position: absolute;
@@ -490,6 +491,7 @@
 
 					var generalFillStyle = 'rgb(0,162,232)';// 'rgb(252, 207, 14)'; 
 					var firstAdjust = true;
+					var generalShadow = '#222222';
 
 
 					function adjust() {
@@ -511,18 +513,23 @@
 						var head = headDOM.getContext('2d');
 
 						pwh = headDOM.width/100;   //percenteage width headdom
-						phh = headDOM.height/100;  //percentage height headdom
+						phh = (headDOM.height-8)/100;  //percentage height headdom
 
 						//head.clearRect(0, 0, headDOM.width, headDOM.height);
 						head.fillStyle = generalFillStyle;
 						head.beginPath();
 						head.moveTo(0, 0);
 						head.lineTo(pwh*0, phh*70);
-						head.lineTo(pwh*85, phh*100);
+						head.lineTo(pwh*85, phh*100-4);
 						head.lineTo(pwh*100, phh*50);
 						head.lineTo(pwh*100, phh*0);
 						head.closePath();
+						head.shadowColor = generalShadow;
+					    head.shadowBlur = 12;
+					    head.shadowOffsetX = 0;
+					    head.shadowOffsetY = 4;
 						head.fill();
+						
 
 
 						
@@ -539,10 +546,14 @@
 						info.beginPath();
 						info.moveTo(pwi*0, phi*100);
 						info.lineTo(pwi*0, phi*10);
-						info.lineTo(pwi*100, phi*0);
+						info.lineTo(pwi*100-12, phi*0+12);
 						info.lineTo(pwi*87, phi*100);
 						
 						info.closePath();
+						info.shadowColor = generalShadow;
+					    info.shadowBlur = 12;
+					    info.shadowOffsetX = 4;
+					    info.shadowOffsetY = -4;
 						info.fill();
 
 
@@ -552,19 +563,23 @@
    						var closeDOM = document.getElementById('closecanvas');
 						var close = closeDOM.getContext('2d');
 
-						pwi = closeDOM.width/100;   //percenteage width closedom
-						phi = closeDOM.height/100;  //percentage height closedom
+						pwc = closeDOM.width/100;   //percenteage width closedom
+						phc = closeDOM.height/100;  //percentage height closedom
 
 						//head.clearRect(0, 0, headDOM.width, headDOM.height);
 						close.fillStyle = generalFillStyle;
 						close.beginPath();
-						close.moveTo(pwi*100, phi*100);
-						close.lineTo(pwi*22, phi*100);
-						close.lineTo(pwi*39, phi*0);
-						close.lineTo(pwi*100, phi*20);
+						close.moveTo(pwc*100, phc*100);
+						close.lineTo(pwc*22, phc*100);
+						close.lineTo(pwc*39, phc*0);
+						close.lineTo(pwc*100, phc*20);
 						
 						
 						close.closePath();
+						close.shadowColor = generalShadow;
+					    close.shadowBlur = 12;
+					    close.shadowOffsetX = -4;
+					    close.shadowOffsetY = -4;
 						close.fill();
 
 
@@ -588,7 +603,7 @@
 						$('#gitlogo').css( {
 							'position':'absolute',
 							'top': (($('.info').width()-($('.info').width()-($('.info').height()-(($(window).height()/100)*60))))-64)/2+10+'px',
-							'right': (($('.info').width()-($('.info').width()-($('.info').height()-(($(window).height()/100)*60))))-64)/2+10+'px',
+							'right': (($('.info').width()-($('.info').width()-($('.info').height()-(($(window).height()/100)*60))))-64)/2+12+'px',
 							'width' :'60px',
 						});
 
