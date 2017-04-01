@@ -14,12 +14,22 @@
 			  font-family: 'Kraftstoff';
 			  src: url("Kraftstoff-Regular.otf");
 			}
-			html *
-			{
+			
+			* {
 			   color: white;
-			   font-size: 1.1em;
+			   font-size: 22px;
 			   font-family: 'Kraftstoff' !important;
 			}
+
+
+			
+
+
+			#infotitletext {
+				font-size: 32px;
+			}
+			
+
 
 			body {
 				margin: 0;
@@ -116,13 +126,13 @@
 			#title{
 				position: absolute;
 				left:1%;
-				top: 5%;
-				font-size: 3em ;
+				top: 3%;
+				font-size: 50px ;
 			}
 
 			#clock {
 				position: absolute;
-				font-size: 3em;
+				font-size: 50px;
 				top: 42%;
 				right: 15%;
 			}
@@ -174,13 +184,13 @@
 				#title{
 					position: absolute;
 					left:1%;
-					top: 5%;
-					font-size: 1.74em ;
+					top: 3%;
+					font-size:  45px ;
 				}
 
 				#clock {
 					position: absolute;
-					font-size: 1.74em;
+					font-size:  45px;
 					top: 42%;
 					right: 15%;
 				}
@@ -191,8 +201,8 @@
 		<div class="text">
 			<div id="pretext"></div>
 			<p>
-				<font size="4" id="infofont">
-					</font></p><p><font size="4" id="infofont">Sono Popolizio Domenico, un ragazzo a cui piace programmare.</font></p><font size="4" id="infofont">
+				<font id="infofont">
+					</font></p><p><font id="infofont">Sono Popolizio Domenico, un ragazzo a cui piace programmare.</font></p><font id="infofont">
 					<p>Non tendo spesso a pubblicare i miei progetti, ma da qualche tempo a questa
 					parte ho deciso di iniziare a farlo, <br>tra i progetti pubblicati ci sono codici scolastici e altri creati indipendentemente.
 					</p><p>
@@ -260,7 +270,7 @@
 			<canvas class="canvas" id="infocanvas" width="819.1875" height="441.75">
 			</canvas>
 
-			<div id="infotitle"><font size="6"><p>Risolutore di fisica</p></font></div>
+			<div id="infotitle"><font ><p>Risolutore di fisica</p></font></div>
 			
 
 			<div class="infotext popuptext" id="infotext">
@@ -403,14 +413,14 @@
 				text = '';
 				textRedirect = '';
 				
-				title += '<font size=6><p>'+obj.name+'</p></font>';
+				title += '<font><p id="infotitletext">'+obj.name+'</p></font>';
 				
-				text += '<font size=4.5 class="infoarea"><p>'+obj.info+'</p></font>';
+				text += '<font class="infoarea"><p>'+obj.info+'</p></font>';
 				text += '<br>';
 				if (obj.pagina != obj.github) {
-					textRedirect = '<a href="'+obj.pagina+'"><font color="white">Clicca qui per vedere la pagina!</font></a>'
+					textRedirect = '<a href="'+obj.pagina+'"><font color="white"><p>Clicca qui per vedere la pagina!<p></font></a>'
 				} else {
-					textRedirect = '<a href="'+obj.pagina+'"><font color="white">Clicca qui per vedere il codice!</font></a>'
+					textRedirect = '<a href="'+obj.pagina+'"><font color="white"><p>Clicca qui per vedere il codice!<p></font></a>'
 				}
 				
 				$('a#git').attr('href', obj.github);
