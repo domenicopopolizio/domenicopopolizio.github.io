@@ -10,10 +10,17 @@
 		<script src="velocity.min.js"></script>
 
 		<style>
-			html {
-				color: white;
-				font-family: "Kraftstoff-Regular.otf";
+			@font-face {
+			  font-family: 'Kraftstoff';
+			  src: url("Kraftstoff-Regular.otf");
 			}
+			html *
+			{
+			   color: white;
+			   font-size: 1em;
+			   font-family: 'Kraftstoff' !important;
+			}
+
 			body {
 				margin: 0;
 				border: 0;
