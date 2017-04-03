@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nth-child</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<style>	
+		body {
+			font-family: sans-serif;
+		}
+
+		ol {
+			width: 40%;
+		}
+
+		li:nth-child(5) {
+			color: red;
+		}
+
+		li:nth-child(2n) {
+			background-color: #008080;
+		}
+
+		li:nth-child(2n+1){
+			background-color: #ccc;
+		}
+	</style>
+</body>
+	<ol>
+		<li> <a href="1.html"> <font color="#008080"> Link 1 </font> </a> </li>
+		<li> <a href="2.html"> <font color="#ccc"> Link 2 </font> </a> </li>
+		<li> <a href="3.html"> <font color="#008080"> Link 3 </font> </a> </li>
+		<li> <a href="4.html"> <font color="#ccc"> Link 4 </font> </a> </li>
+		<li> <a href="5.html"> <font color="#008080"> Link 5 </font> </a> </li>
+		<li> <a href="6.html"> <font color="#ccc"> Link 6 </font> </a> </li>
+		<li> <a href="7.html"> <font color="#008080"> Link 7 </font> </a> </li>
+	</ol>
+</html>
