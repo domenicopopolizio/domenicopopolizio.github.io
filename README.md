@@ -1,5 +1,6 @@
 # domenicopopolizio.github.io
 My personal website.
+
 As you can see, the index.html file, contains a redirect to the link where the hompage is hosted (https://domenicopopolizio.000webhostapp.com/),
 so if you want to read the code of this page you read the index.php file.
 This website include both html and php pages:
