@@ -24,4 +24,4 @@ github, and if, in any future project, they are not, I will insert a notice on t
 p.s.
 I'm italian, so sorry if my english is not perfect, it isn't my language, however I do my best :)
 
-(That's also why in my code the most of the comment/sentences aren't in english, but in italian.)
+(That's also why in my code the most of the comment/sentences aren't in english, but in italian).
