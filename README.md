@@ -12,7 +12,7 @@ This website include both html and php pages:
 
 -All the html file are only hosted on github pages  (https://domenicopopolizio.github.io);
 
--All the php file, instead, are hosted on 000webhostapp on the link above ( the sameof the index.php page), but all the codes are in this repository!
+-All the php file, instead, are hosted on 000webhostapp on the link above ( the same of the index.php page), but all the codes are in this repository!
 
 -------------------------------------------------------------------------------------------------------
 
