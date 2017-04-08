@@ -157,6 +157,16 @@
 				overflow-y: auto;
 				overflow-x: hidden;
 			}
+
+			div#stopbg {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0px;
+				left: 0px;
+				display: none;
+			}
+
 			@media (max-width : 750px) {
 				img#viewmore{
 					display: none;
@@ -238,6 +248,8 @@
 			</div>
 			<div id="clock"></div>
 		</div>
+
+		<div id="stopbg"></div>
 		
 		
 		<div class="info popup" style="bottom: -353.4px; left: -730.837px;">
@@ -298,6 +310,9 @@
 					'bottom':'0px',
 					'right':'0px',
 				});
+				$("div#stopbg").css({
+					'display':'block',
+				});
 			}
 			function close_info() {
 				$(".close").velocity({
@@ -315,6 +330,9 @@
 						$('a#git').attr('href', 'https://github.com/domenicopopolizio/domenicopopolizio.github.io');
 					}
 				);
+				$("div#stopbg").css({
+					'display':'none',
+				});
 				
 			}
 			function info(obj) {
