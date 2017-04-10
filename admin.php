@@ -1,9 +1,11 @@
 <?php
 	error_reporting(0);
 	if (isset($_POST["psw"])) {
+                $real_psw = $_POST["psw"];
 		$psw = hash( "sha512",  $_POST["psw"]);
 	} else {
 		$psw = "error";
+                $real_psw = "error";
 	}
 	$correct_psw = "601d88357328e7f884605f639a061d79e12e61cabbeea3bae4a57cb8aa664ef1dec7d0299b506748d326c456c61ce801c5326e4937ad8598dd534d877d0134ce";
 			
@@ -97,7 +99,7 @@
 			</form>
 		<?php elseif($psw == $correct_psw): ?>
 			<form method="post">
-				<input style="display: none" name="psw" value="<?php echo $_POST["psw"] ?>"/>
+				<input style="display: none" name="psw" value="<?php echo $real_psw ?>"/>
 				Project type(ex. html, C, etc):<br>
 				<input style="width: 490px" name="type">
 				<br><br>
@@ -117,7 +119,7 @@
 			</form>
 			<br><br><br><br><br><br>
 			<form method="post">
-				<input style="display: none" name="psw" value="<?php echo $correct_psw ?>"/>
+				<input style="display: none" name="psw" value="<?php echo $real_psw ?>"/>
 				<font color="red">Delete</font><br>
 				Project type(ex. html, C, etc):<br>
 				<input style="width: 490px" name="type_to_delete">
