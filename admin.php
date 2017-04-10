@@ -97,7 +97,7 @@
 			</form>
 		<?php elseif($psw == $correct_psw): ?>
 			<form method="post">
-				<input style="display: none" name="psw" value="<?php echo $correct_psw ?>"/>
+				<input style="display: none" name="psw" value="<?php echo $_POST["psw"] ?>"/>
 				Project type(ex. html, C, etc):<br>
 				<input style="width: 490px" name="type">
 				<br><br>
