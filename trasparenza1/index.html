@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trasparenza semmicerchio e rettangolo</title>
+</head>
+<body>
+	<canvas id="tela" width="400" height="300" style="border: 2px double gray;">
+		ATTENZIONE: Il tuo browser non supporta javascript o il canvas!ù
+	</canvas>
+	<script>
+		var canvas=document.getElementById("tela");
+		var ctx=canvas.getContext("2d");;
+		ctx.rect(100, 60, 200, 70);
+		ctx.fillStyle="rgba(255, 255,0, 0.5)";
+		ctx.fill();
+		ctx.beginPath();
+		ctx.arc(100,95, 50, 0, Math.PI, false);
+		ctx.fillStyle="rgba(0, 255, 255, 0.5)";
+		ctx.fill();
+	</script>
+</body>
+</html>
