@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title> Domenico Popolizio's site </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="velocity.min.js"></script>
+
+		<style>
+			@font-face {
+			  font-family: 'Kraftstoff';
+			  src: url("Kraftstoff-Regular.otf");
+			}
+			
+			* {
+			   color: white;
+			   font-size: 22px;
+			   font-family: Times !important;
+			}
+			
+			input {
+				color: black;
+				width: 40px;
+				text-align: right;
+			}
+			svg {
+				width: 1em;
+				height: 1em;
+				position: absolute;
+			}
+			.icon {
+			  display: inline-block;
+			  width: 1em;
+			  height: 1em;
+			  fill: white;
+			  left: 50%;
+			  top: 50%;
+			  margin-top: -0.5em;
+			  margin-left: -0.5em;
+			  position: absolute;
+			}
+			input#s {
+				text-align: center;
+				width: 1.8em;
+			}
+			#content {
+				position: absolute;
+				top: 25%;
+				width: 100%;
+			}
+			div#btn {
+				position: absolute;
+				width: 1.8em;
+				height: 1.8em;
+				border-radius: 100%;
+				background-color: rgb(0,162,232);
+				border: 0px;
+				margin-top: 1em;
+				left: 50%;
+				margin-left: -0.9em;
+				box-shadow: 0px 0px 12px #222222;
+			}
+			.popup {
+				position: fixed;
+			}
+			body {
+				margin: 0;
+				border: 0;
+				padding: 0;
+				width: 100%;
+				background-color: rgb(43, 42, 40);
+			}
+			
+			canvas {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.head {
+				width: 100%;
+				height: 20%;
+				left:0px;
+				top: 0px;
+				top:-20%;
+			}
+			#title{
+				position: absolute;
+				left:1%;
+				top: 3%;
+				font-size: 40px ;
+			}
+			#clock {
+				position: absolute;
+				font-size: 41px;
+				top: 42%;
+				right: 15%;
+			}
+			
+			
+			@media (max-width : 750px) {
+				
+				#title{
+					position: absolute;
+					left:1%;
+					top: 3%;
+					font-size:  25px ;
+				}
+				#clock {
+					position: absolute;
+					font-size:  25px;
+					top: 42%;
+					right: 15%;
+				}
+		</style>
+	</head>
+
+
+
+
+
+
+
+
+
+	
+		
+		<div class="head popup" style="top: 0px;">
+			<canvas class="headcanvas" id="headcanvas" width="1024" height="117.796875">
+			</canvas>
+			
+			<div class="headtext popuptext" id="title"> 
+				Risolutore di Equazioni e Disequazioni
+			</div>
+			<div id="clock"></div>
+		</div>
+		<br>
+		<div style="position: absolute; font-size: 0.75em; top: 50%;">
+		
+        <!--br>
+        Risolutore di equazioni e disequazioni di secondo grado portate alla forma 'ax²+bx+c', dove 'x' è l'incognita,
+        'a' e 'b' sono le  parti numeriche, e 'c' il termine noto.<br>
+        Nelle aree bianche (sositituendo i numeri di esempio) inserire, in ordine, i valori di 'a', di 'b' e di 'c'.<br>
+        Nella quarta area inserire il segno del rapporto con lo zero:<br> 
+        > - - -  maggiore di 0.<br>
+        < - - -  minore di 0.<br>
+        <= - - - minore o uguale a 0.<br>
+        >= - - - maggiore o uguale a 0.<br>
+        = - - - uguale a 0.<br-->
+
+        </div>
+		<center>
+			<div id="content">
+
+				<input id="a" value="-1"> x² + <input id="b" value="3"> x + <input id="c" value="2"> <input id="s" value="="> 0
+				<div id="btn">
+					<svg>
+						<symbol id="icon-arrow-right" viewBox="0 0 24 24">
+							<title>arrow-right</title>
+							<path d="M14 4q0.422 0 0.711 0.289l7 7q0.289 0.289 0.289 0.711t-0.289 0.711l-7 7q-0.289 0.289-0.711 0.289-0.43 0-0.715-0.285t-0.285-0.715q0-0.422 0.289-0.711l5.297-5.289h-15.586q-0.414 0-0.707-0.293t-0.293-0.707 0.293-0.707 0.707-0.293h15.586l-5.297-5.289q-0.289-0.289-0.289-0.711 0-0.43 0.285-0.715t0.715-0.285z"></path>
+						</symbol>
+					</svg>
+					<svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+				</div>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div id="sol"></div>
+			</div>
+		</center>
+
+	<script>
+			
+			
+			function updateClock() {
+				d = new Date();
+				o = d.getHours()+'';
+				if (o.length == 1) {
+					o = '0'+o;
+				}
+				else if (o.length == 0) {
+					o += '00';
+				}
+				m = d.getMinutes()+'';
+				if (m.length == 1) {
+					m = '0'+m;
+				}
+				else if (o.length == 0) {
+					m += '00';
+				}
+				ora = o+':'+m;
+				$('#clock').html(ora);
+				requestAnimationFrame(updateClock);
+			}
+ 			$(
+				function () {
+					
+					requestAnimationFrame(updateClock);
+			
+					$(".head").css({
+						'top':'-20%',
+					});
+					
+					$(".head").velocity({
+						'top':'0px',
+					});
+					
+					/*$(".info").velocity({
+						'bottom':'0px',
+						'left':"0px",
+					});
+					$(".close").velocity({
+						'bottom':'0px',
+						'right':'0px',
+					});*/
+					//$(".info").click(open_info);
+					var generalFillStyle = 'rgb(0,162,232)';// 'rgb(252, 207, 14)';
+					var generalShadow = '#222222';
+					function adjust() {
+
+						var w = $(window).width();
+						var h = $(window).height();
+						var pw = w/100;
+						var ph = h/100;
+ 
+						$(".close").css({"width":$(".close").height()+"px"});
+						
+						
+						$('#headcanvas').attr("width",$(".head").width());
+   						$('#headcanvas').attr("height",$(".head").height());
+						var headDOM = document.getElementById('headcanvas');
+						var head = headDOM.getContext('2d');
+						pwh = headDOM.width/100;   //percenteage width headdom
+						phh = (headDOM.height-8)/100;  //percentage height headdom
+						//head.clearRect(0, 0, headDOM.width, headDOM.height);
+						head.fillStyle = generalFillStyle;
+						head.beginPath();
+						head.moveTo(0, 0);
+						head.lineTo(pwh*0, phh*70);
+						head.lineTo(pwh*85, phh*100-4);
+						head.lineTo(pwh*100, phh*50);
+						head.lineTo(pwh*100, phh*0);
+						head.closePath();
+						head.shadowColor = generalShadow;
+					    head.shadowBlur = 12;
+					    head.shadowOffsetX = 0;
+					    head.shadowOffsetY = 4;
+						head.fill();
+
+					}
+					$(window).resize(
+						function() {
+							adjust();
+						}
+					);
+					adjust(); 
+				}
+ 			);
+		</script>
+
+
+
+		<script>
+			/*var a = 0;
+			var b = 0; 
+			var c = 0;
+			var s = 0;*/
+			function solve(a,b,c) {
+				return [ (-b+Math.sqrt(b*b-4*a*c))/(2*a) , (-b-Math.sqrt(b*b-4*a*c))/(2*a) ];
+			}
+			function isNumber(n) { //funzione presa da https://stackoverflow.com/questions/9716468/is-there-any-function-like-isnumeric-in-javascript-to-validate-numbers
+			  return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+			$(
+				function() {
+					var btn = $("#btn");
+					btn.click( 
+						function () {
+							var a = eval($("#a").val());
+							var b = eval($("#b").val());
+							var c = eval($("#c").val());
+							var s = $("#s").val().replace(' ', '');
+							canSolve = true;
+							if ( !(isNumber(a)) ) {
+								$("#sol").html("'a' deve essere un numero!<br>");
+								canSolve = false;
+							}
+							if ( !(isNumber(b)) ) {
+								$("#sol").html("'b' deve essere un numero!<br>");
+								canSolve = false;
+							}
+							if ( !(isNumber(c)) ) {
+								$("#sol").html("'c' deve essere un numero!<br>");
+								canSolve = false;
+							}
+
+							if (a == 0) {
+								$("#sol").html("'a' deve essere diverso da '0' !<br>");
+								canSolve = false;
+							}
+							else if (a < 0) {
+								a = -1*a;
+								b = -1*b;
+								c = -1*c;
+								switch (s) {
+									case "<":
+										s = ">";
+										break;
+									case ">":
+										s= "<";
+										break;
+									case ">=":
+										s = "<=";
+										break;
+									case "<=":
+										s = ">=";
+										break;
+									case "=":
+										s = "=";
+										break;
+								}
+							}
+
+							eqSol = solve(a, b, c); //soluzione dell'equazione per x=0
+							sol = undefined; //soluzione della disequzione
+							
+							if (eqSol[0] == Infinity || eqSol[0] == -Infinity || isNaN(eqSol[0]) || eqSol[0] == undefined || eqSol[1] == Infinity || eqSol[1] == -Infinity || isNaN(eqSol[1]) || eqSol[1] == undefined ) {
+								
+								if (s == ">" || s == ">=") {
+									sol="∀x"+";"; 
+								} else {
+									sol="⦰"+";";
+								}
+							} else if (eqSol[0] == eqSol[1]) {
+								switch (s) {
+									case ">":
+										sol = "∀x con x ≠ "+eqSol[0].toFixed(3)+";";
+										break;
+									case ">=":
+										sol = "∀x;";
+										break;
+									case "<=":
+										sol = "x = "+eqSol[0].toFixed(3)+";";
+										break;
+									case "<":
+										sol="⦰"+";";
+										break;
+									case "=":
+										sol="x = "+eqSol[0].toFixed(3)+";";
+										break;
+								}
+							} else {
+								max = Math.max(eqSol[0],eqSol[1]).toFixed(3);
+								min = Math.min(eqSol[0],eqSol[1]).toFixed(3);
+								switch (s) {
+									case ">":
+										sol = "x &lt; "+min+"; x&gt; "+max+";";
+										break;
+									case ">=":
+										sol = "x ≤ "+min+"; x ≥"+max+";";
+										break;
+									case "<=":
+										sol = min+" ≤ x ≤ "+max+";";
+										break;
+									case "<":
+										sol=min+"&lt; x &lt;"+max+";";
+										break;
+									case "=":
+										sol="x = "+eqSol[0].toFixed(3)+"; x = "+eqSol[1].toFixed(3)+";";
+										break;
+								}
+							}	
+							
+
+							if (canSolve) {
+								$("#sol").html("Sol:<br>"+sol);
+							}
+										
+						} 
+					);
+				}
+			)
+		</script>
+
+
+		
+	
+	</body>
+</html>
