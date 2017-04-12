@@ -333,7 +333,7 @@
 								if (s == ">" || s == ">=") {
 									sol="∀x"+";"; 
 								} else {
-									sol="⦰"+";";
+									sol="∅"+";";
 								}
 							} else if (eqSol[0] == eqSol[1]) {
 								switch (s) {
@@ -347,7 +347,7 @@
 										sol = "x = "+eqSol[0].toFixed(3)+";";
 										break;
 									case "<":
-										sol="⦰"+";";
+										sol="∅"+";";
 										break;
 									case "=":
 										sol="x = "+eqSol[0].toFixed(3)+";";
