@@ -1,0 +1,145 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(materialicon.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 200;
+  src: url(Rboto-Light.ttf) format('ttf');
+}
+
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: 'liga';
+}
+
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100vh;
+}
+
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.stecchino {
+    position: absolute;
+    width: 17.5px;
+    height: 300px;
+    background-image: url(stecchino.png);
+    background-size: cover;
+    top: 50%;
+    margin-top: -150px;
+}
+
+
+#end {
+    position: absolute;
+    height: 13vh;
+    width: 13vh;
+    bottom: 15px;
+    right: 15px;
+    display: none; /*diventa flex durante il corso della partita, al turno del giocatore*/
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    color: white;
+    border-radius: 6.5vh;
+    background-color: #00e51d;
+    box-shadow: 0px 2px 10px gray;
+}
+
+#end:active, #refresh:active {
+    animation-duration: 0.15s;
+    animation-name: press;
+    -webkit-animation-duration: 0.15s;
+    -webkit-animation-name: press;
+    box-shadow: 0px 2px 15px gray;
+}
+#end:hover, #refresh:hover {
+    cursor: pointer;
+}
+
+#refresh {
+    position: absolute;
+    height: 13vh;
+    width: 13vh;
+    top: 15px;
+    right: 15px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    color: white;
+    border-radius: 6.5vh;
+    background-color: #287aff;
+    box-shadow: 0px 2px 10px gray;
+    text-decoration: none;
+}
+
+
+
+@keyframes press {
+    from {
+        box-shadow: 0px 2px 10px gray;
+    }
+    to {
+        box-shadow: 0px 2px 15px gray;
+    }
+}
+
+@-webkit-keyframes press {
+    from {
+        box-shadow: 0px 2px 10px gray;
+    }
+    to {
+        box-shadow: 0px 2px 15px gray;
+    }
+}
+
+
+#banner {
+    position: absolute;
+    width: 0%;
+    height: 25%;
+    top: 37.5%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 2;
+    overflow: hidden;
+}
+
+#banner-content {
+    height: 2em;
+    margin-top: calc(12.5vh - 1em);
+    margin-left: calc(50vw - 100px);
+    width: 200px;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 20px;
+}
