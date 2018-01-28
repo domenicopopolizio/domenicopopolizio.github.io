@@ -3,6 +3,7 @@
 var cacheName = "11STECCHINI";
 
 var defaultToCache = [
+    "/11stecchini",
     "background.png",
     "index.css",
     "index.html",
