@@ -3,6 +3,7 @@
 const cacheName = '11STECCHINI';
 
 const defaultToCache = [
+    '/11stecchini/',
     'index.html',
     'background.png',
     'index.css',
