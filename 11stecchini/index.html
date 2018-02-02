@@ -1,29 +1,35 @@
 <!doctype html>
 <html>
 	<head>
+		<!-- META TAGS -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- INFORMAZIONI SULLA PWA -->
+		<meta name="theme-color" content="#ffffff">
+		<title>11 stecchini, il Gioco</title>
+		<link rel="manifest" href="manifest.json">
+
+		<!-- LIBRERIE -->
+		<script src="velocity.min.js"></script>
+		
+		<!-- FILE ESTERNI -->
+		<link href="index.css" rel="stylesheet" type="text/css" />
+		<script src="index.js"></script>
+
+		<!-- REGISTRAZIONE SERVICE WORKER -->
 		<script>
-			 if ('serviceWorker' in navigator) {
+			if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('sw.js')
                 .then(
-                    function (reg) {
-                        console.log(reg);
-                    }
+                    reg => console.log(reg)
                 )
                 .catch(
-                    function (err) {
-                        console.log("Qualcosa è andato storto nell'installazione di service woker! Errore: ", err);
-                    }
+                    err => console.log("Qualcosa è andato storto nell'installazione di service woker! Errore: ", err)
                 );
             }
 		</script>
-		<title>11 stecchini, il Gioco</title>
-		<script src="velocity.min.js"></script>
-		<script src="index.js"></script>
-		<meta charset="utf-8">
-		<link href="index.css" rel="stylesheet" type="text/css" />
-		<link rel="manifest" href="manifest.json">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+
 	</head>
 	<body> 
 		<img id="background" src="background.png" />
@@ -31,7 +37,7 @@
 		<div id="banner" class="btn">
 			<div id="banner-content"></div>
 		</div>
-		<a id="refresh" class="btn" href=".">
+		<a id="refresh" class="btn" href="index.html">
 			<i class="material-icons">cached</i>
 		</a>
 		<div class="stecchino tavolo" id="s0"></div>

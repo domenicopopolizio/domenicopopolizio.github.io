@@ -1,6 +1,13 @@
 ﻿{
   "short_name": "11stecchini",
   "name": "Il gioco degli 11 stecchini",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "version": "1.2",
+  "background_color":"#ffffff",
+  "theme_color":"#ffffff",
+  "manifest-version": "1.0",
   "icons": [
     {
       "src": "logo.png",
@@ -44,12 +51,5 @@
       "type": "image/png",
       "density": "4.0"
     }
-  ],
-  "start_url": "index.html",
-  "display": "fullscreen",
-  "orientation": "landscape",
-  "version": "0.1",
-  "background_color":"#ffffff",
-  "theme_color":"#ffffff",
-  "manifest-version": "1.0"
+  ]
 }
