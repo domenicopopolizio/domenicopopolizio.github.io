@@ -34,7 +34,7 @@ const cacheFetch = request =>
         cache => 
             cache.match(request)
             .then(
-                response => response 
+                response => response || serverFetch(request)
             )
             .catch(
                 error => serverFetch(request)
