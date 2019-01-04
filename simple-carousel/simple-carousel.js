@@ -30,9 +30,10 @@ class Carousel {
         // smoothly
         ev.target.parentNode.scrollTo({
             top: 0,
-            left: ev.target.offsetLeft - window.innerWidth / 2 + ev.target.clientWidth / 2,
+            left: ev.target.offsetLeft - ev.target.parentNode.clientWidth / 2 + ev.target.clientWidth / 2,
             behavior: "smooth"
         });
+
 
         // the current selected element of the carousel is not more the current selected element
         // (It iterate through all the .current element, but it should be just one element)
